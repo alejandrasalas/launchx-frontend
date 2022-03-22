@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex</title>
+    <link rel="stylesheet" href="./poledex.css">
+    
+    <style type="text/css">
+        body{ background: rgb(13,121,130);
+background: linear-gradient(90deg, rgba(13,121,130,0.6811099439775911) 0%, rgba(52,63,64,0.5942752100840336) 35%, rgba(0,212,255,1) 100%);
+font-family: monospace
+
+        }
+
+        h1{ color: goldenrod;
+            font-size: 250%;
+            text-align: center
+        
+            
+        
+        }
+
+        img{ align-items: center;
+            font-size: x-large;
+            
+            
+        }
+        
+    
+
+      </style>
+    
+
+
+
+
+
+
+
+
+</head>
+<body>
+     
+    <h1>Pokedex</h1><br><br>
+    <img src="pokemon fo.webp" alt="Pokemon" id="pokeImg" width="150px">
+    <input type="text" placeholder="Cambiar Pokemon" id="pokeName" name="pokeName">
+    <img src="pokc.png" alt="Pokemon" id="pokeImg" width="100px">
+    <button onclick="fetchPokemon()">Cambiar Imágen</button> <br><br>
+    <audio src="intropok.mp3"autoplay="Reproducir" controls mediagroup="intropok" ></audio>
+</body>
+<footer>
+    <script src="./POKEDEX.js"></script>
+</footer>const fetchPokemon = () => {
+    const pokeNameInput = document.getElementById("pokeName");
+    let pokeName = pokeNameInput.value;
+    pokeName = pokeName.toLowerCase();
+    const url = `https://pokeapi.co/api/v2/pokemon/${pokeName}`;
+    fetch(url).then((res) => {
+        if (res.status != "200") {
+            console.log(res);
+            pokeImage("./pokemon-sad.gif")
+        }
+        else {
+            return res.json();
+        }
+    }).then((data) => {
+        if (data) {
+            console.log(data);
+            let pokeImg = data.sprites.front_default;
+            pokeImage(pokeImg);
+            console.log(pokeImg);
+            let height = data.height;
+            let weight = data.weight;
+            
+            pokeTodo(height,weight)
+        }
+    });
+}
+
+const pokeImage = (url) => {
+    const pokePhoto = document.getElementById("pokeImg");
+    pokePhoto.src = url;
+}
+
+const pokeTodo = (altura, peso ) =>{
+    console.log("La Altura es: "  + altura)
+    console.log("El Peso es de: " + peso)
+
+}
+</html>
+
+
